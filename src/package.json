@@ -6,7 +6,7 @@
   "repository": "https://github.com/clinwiki-org/MailMerge",
   "author": "Eric Harding",
   "license": "MIT",
-  "private": false,
+  "access": "public",
   "scripts": {
     "build": "tsc",
     "test": "echo todo"
@@ -19,6 +19,6 @@
   "devDependencies": {
     "typescript": "^4.2.4"
   },
-  "keywords": [ ],
+  "keywords": [],
   "funding": "https://www.clinwiki.org/make-a-donation/"
 }
