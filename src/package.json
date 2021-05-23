@@ -2,7 +2,7 @@
   "name": "@clinwiki/mailmerge",
   "version": "0.0.1",
   "description": "Runtime template system which builds graphql fragments based on the fields in the template.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "repository": "https://github.com/clinwiki-org/MailMerge",
   "author": "Eric Harding",
   "license": "MIT",
@@ -11,7 +11,14 @@
     "build": "tsc",
     "test": "echo todo"
   },
+  "files": [
+    "dist",
+    "../LICENSE",
+    "../README.md"
+  ],
   "devDependencies": {
     "typescript": "^4.2.4"
-  }
+  },
+  "keywords": [ ],
+  "funding": "https://www.clinwiki.org/make-a-donation/"
 }
