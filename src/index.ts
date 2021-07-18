@@ -1,4 +1,5 @@
+import View from './MailMerge/MailMergeView';
+import MailMerge from './MailMerge/MailMerge';
+import { compileFragment } from './MailMerge/MailMergeFragment'
 
-export function add(a : number, b : number) { 
-  return a + b;
-}
+export { MailMerge as MailMergeEditor, View as MailMergeView, compileFragment };
