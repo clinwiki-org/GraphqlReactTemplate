@@ -1,4 +1,4 @@
-import { useState, useMemo, CSSProperties } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   IntrospectionType,
   IntrospectionOutputTypeRef,

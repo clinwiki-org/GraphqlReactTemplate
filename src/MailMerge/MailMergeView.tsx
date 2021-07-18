@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import Handlebars from 'handlebars';
-import useHandlebars from 'hooks/useHandlebars';
 import marked from 'marked';
 import HtmlToReact from 'html-to-react';
 import { fetchSuggestedLabels, upsertLabelMutation, deleteLabelMutation, setShowLoginModal } from '../../services/study/actions';
@@ -74,7 +73,6 @@ export function microMailMerge(template = '', context?: object | null) {
 const MailMergeView = (props: Props) => {
   let aggIslands: any[] = [];
 
-  useHandlebars();
   const dispatch = useDispatch();
   const showLoginModal = useSelector((state: RootState) => state.study.showLoginModal);
   const data = useSelector((state: RootState) => state.search.searchResults);
