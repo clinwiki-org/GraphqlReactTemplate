@@ -11,6 +11,10 @@ A runtime template system which introspects on your graphql server and generates
 
 # Building
 
-cd src
+cd src  
 yarn build
+
+# Documentation
+
+Go (here for usage and api documentation)[./API.md]
 
