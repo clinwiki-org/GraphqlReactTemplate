@@ -101,7 +101,13 @@ TODO: This section is under construction...
 
 <MailMerge template={} data={}  />
 
-
+# Examples
+    TODO: Agg like tree where there are expanders that need to make new unrelated sub-queries which get merged into the context
+          Mailmerge should use reference equality to to supress re-render of islands where needed.
+    
+# Errors
+    TODO: Islands should use react error boundaries to handle errors without "blank white page".
+    
 
 # FootNotes
 1.  OK, "comfortable" might be stretching it a bit right now. MailMerge is a work in progress.
