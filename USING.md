@@ -59,7 +59,7 @@ This will result in an object of structure similar to the following. _However, t
     { 
         name: "CatPic"
         fragment: Frament,
-        factory: (attributes, children, setValue(key=value), raiseEvent(eventName, arg), ... ?)
+        factory: (attributes, children, raiseEvent(eventName, arg), ... ?)
     }
 
 ### The makeIsland function
@@ -70,20 +70,23 @@ The makeIsland constructor function takes 3 arguments.
 3. The **constructor** function for the element.  When the MailMerge template is rendered to react elements this function is called to create the element that represents this Island. This function takes a series of optional arguments which can be used to customize the behavior. None of these are required so the simplest Island is something like `() => <div />`.  The arguments are
     1. **attributes** - Map of attributes supplied to the Island in the template.  These will be a map of string keys to string values. 
     2. **children** - This is the collection of react child elements of the `Island`.  This allows you to wrap elements in things like borders or expanders. This is very similar to a react higher order component.  I.e. `(attr, children) => <div class='border'><children></div>`
-    3. **setValue(key:string, value:object)** - When defining the GraphQL fragment you can provide "holes" or mutable values which can supplied or changed by the template.  For example you might want to include a text area which when changed sets the search parameter of the query.  Once setValue is called the GraphQL query will be invalidated and the `MailMerge  may be re-rendered.
-    4. **raiseEvent(eventName:string, payload:object)** - Sometimes it may be useful for the `MailMerge` control to communicate up to the larger page. You can, of course, use the React context api to achieve this but it might be easier for the page to hook a single event on the `MailMerge` element and pass events out.  For example this could be used to enable user controls to raise events that get mapped directly to Redux events or a 'refresh' button might be added to indicate the page should refresh the query from the server without changing anything.
-    Each event has a name and a payload. The payload must be interpreted by the handler of the event. Events are never handled by the `MailMerge` control except to be logged if a handler is not provided. 
-        *TODO*: Should setValue just be raiseEvent('SET', 'key=value')?
+    3. **raiseEvent(eventName:string, payload:object)** - Sometimes it may be useful for the `MailMerge` control to communicate up to the larger page. You can, of course, use the React context api to achieve this but it might be easier for the page to hook a single event on the `MailMerge` element and pass events out.  For example this could be used to enable user controls to raise events that get mapped directly to Redux events or a 'refresh' button might be added to indicate the page should refresh the query from the server without changing anything.  
+    Each event has a name and a payload. The payload must be interpreted by the handler of the event. Events are never handled by the `MailMerge` control except to be logged if a handler is not provided.   
+    **NOTE**: A special case of raiseEvent is the "SET" event which can be used to set values in the fragment parameter set.
 
 
 # Mailmerge Fragment type
 TODO: This section is under construction...
     {
         root: String
-        params : string list // list of variable names
-        // TODO: think about this
+        nodes : Node recursive type
+        params : string[] // list of variable names
+        defaultValues: Map<key,Value>,
+        values: Map<key,value>,
+        setvalue : (key,value) => new Fragment?
         // fragmentName - actually not important. 
         // fragment identity is determined by the root
+
     }
 
 # Rendering
@@ -97,7 +100,7 @@ TODO: This section is under construction...
 2. **islands** - The set of valid islands in this context
 3. **context** - The result of the GraphQL query.
 4. **paramsUpdated** - The graphql parameters have been updated and the query may need to be re-run.
-5. **onEvent** - An event has been raised. //TODO: Would it be better to pass in a dictionary of event handlers by name? That would allow the MM to deterine unhandled events more precisely
+5. **onEvent** - Set of callbacks for handling events in the form of Record<string, (object) => void>. If an event is raised that isn't in the map an error is logged to the console.  To handle settings values on the Fragment you can bind the set event to the setter on Fragment. Ex: onEvent={{ 'SET': fragment.setValue }}
 
 <MailMerge template={} data={}  />
 
