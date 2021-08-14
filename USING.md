@@ -12,7 +12,7 @@ MailMege works with your GraphQL server to provide user templates over the data 
 When writing a template when the user references a field it is automatically added to a generate GraphQL fragment so the minimum amount of data can be requested from the server. A Fragment is generated instead of a query so the `MailMerge` can be easily inserted into a page and the data required for `MailMerge` added on to the other requests the page makes.
 
 ## Example Template:
-```
+```handlebars
 hello {{user.name}}
 For dinner we are serving:
 {{#each user.meals.dinner.foods}}
@@ -21,7 +21,7 @@ For dinner we are serving:
 ```
 
 Which generates a hypothetical fragment:
-```
+```graphql
 fragment _ on user {
     name
     meals {
@@ -75,19 +75,34 @@ The makeIsland constructor function takes 3 arguments.
     **NOTE**: A special case of raiseEvent is the "SET" event which can be used to set values in the fragment parameter set.
 
 
-# Mailmerge Fragment type
-TODO: This section is under construction...
-    {
-        root: String
-        nodes : Node recursive type
-        params : string[] // list of variable names
-        defaultValues: Map<key,Value>,
-        values: Map<key,value>,
-        setvalue : (key,value) => new Fragment?
-        // fragmentName - actually not important. 
-        // fragment identity is determined by the root
+# Mailmerge Query and Fragment type
 
-    }
+A `Query` is made up of multiple fragments. Each `Fragment` has a single root in the graphql and two fragments with the same root can be merged if they have the same parameters.  Each fragment on a query is defined by it's alias if it has one otherwise defined by it's root key.  If a root has parameters it *must* have an alias.  For the sake of simplicity the argument names are unique across the whole query. So two different fragments which both refer to the `$date` variable will have the same value
+
+// TODO: Should queries be immutable? If they were it would be easy to attach the orignal query to the results for debugging.
+
+```ts
+interface Query {
+    variables: Map<string,object?>
+    defaultValues : Map<string,object>
+    fragments: Record<string,Fragment>
+
+    setValue : (key.value) => Query // todo: immutable?
+    addFragment : (Fragment) => Query
+}
+interface Fragment {
+    root: string
+    alias: string
+}
+interface GraphQLNode {
+    // TODO: under construction
+    // type: 'scalar'|'vector'|'map'
+    parameters: string[]
+}
+```
+
+### Validation
+There is a function `bool validate(Fragment, data)` which will return true if all the fields in Fragment are present in the data.  
 
 # Rendering
 
