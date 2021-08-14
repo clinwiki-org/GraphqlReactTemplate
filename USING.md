@@ -50,17 +50,21 @@ Each `Island` has 3 parts. A "name" or tag which is how the `Island` is referenc
 
 You should use the `makeIsland` function to create islands.
 
-        let myIslands = [
-            makeIsland("CatPic", null, () => <img src="https://placekitten.com/200/300" />)
-        ];
+```ts
+let myIslands = [
+    makeIsland("CatPic", null, () => <img src="https://placekitten.com/200/300" />)
+];
+```
 
 This will result in an object of structure similar to the following. _However, this is an implementation detail and the specific structure of this could be subject to change._
 
+```ts
     { 
         name: "CatPic"
         fragment: Frament,
         factory: (attributes, children, raiseEvent(eventName, arg), ... ?)
     }
+```
 
 ### The makeIsland function
 The makeIsland constructor function takes 3 arguments. 
@@ -106,11 +110,13 @@ There is a function `bool validate(Fragment, data)` which will return true if al
 
 # Rendering
 
+```ts
     // Get the fragment from a template
     getFragment(islands, tempate) -> Fragment
 
     // Render the template
     <MailMerge template="" context={} islands={} paramsUpdated=... onEvent=... />
+```
 1. **template** - The user input template to render
 2. **islands** - The set of valid islands in this context
 3. **context** - The result of the GraphQL query.
