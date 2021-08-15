@@ -125,9 +125,16 @@ There is a function `bool validate(Fragment, data)` which will return true if al
 
 <MailMerge template={} data={}  />
 
+# Mutations
+You may have noticed we haven't talked about Mutations. In general MailMerge focuses on fetching and displaying data rather than changing it. If an island needs to mutate data it's OK to have it use a local mutation. If you need to coordinate mutations across a set of islands you can use the effect system to raise events which trigger the mutations.
+
 # Examples
-    TODO: Agg like tree where there are expanders that need to make new unrelated sub-queries which get merged into the context
-          Mailmerge should use reference equality to to supress re-render of islands where needed.
+* [Simple Example](http://github.com/clinwiki-org/MailMerge/)  
+    Barebones example of using mailmerge to query and view some data.
+* [Search Example](http://github.com/clinwiki-org/MailMerge/)  
+    Shows how to build a simple search page using Mailmerge
+* [Dependent Query Example](http://github.com/clinwiki-org/MailMerge/)  
+    Shows how to use dependent queries where interating with the result may trigger new queries. (See clinwiki agg expander).  Demonstrates use of reference equality to make the updates fast (no 'flash')
     
 # Errors
     TODO: Islands should use react error boundaries to handle errors without "blank white page".
