@@ -84,7 +84,7 @@ The makeIsland constructor function takes 3 arguments.
 A `Query` is made up of multiple fragments. Each `Fragment` has a single root in the graphql and two fragments with the same root can be merged if they have the same parameters.  Each fragment on a query is defined by it's alias if it has one otherwise defined by it's root key.  If a root has parameters it *must* have an alias.  For the sake of simplicity the argument names are unique across the whole query. So two different fragments which both refer to the `$date` variable will have the same value
 
 // TODO: Should queries be immutable? If they were it would be easy to attach the orignal query to the results for debugging.
-
+// NOTE; the fragment type can (will?) be used to memoize each island to the specific data it needs to update. 
 ```ts
 interface Query {
     variables: Map<string,object?>
